@@ -53,8 +53,9 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>Assigned Manager</label>
-                                                    <select name="assignedmanager" class="custom-select">
-                                                        <option></option>
+                                                    <select th:field="*{assignedManager}" name="assignedmanager" class="custom-select">
+                                                        <option th:value="''" th:text="Select"></option>
+                                                        <option th:each=" assignedManager : ${managers}" th:value="${assignedManager.username}" th:text="${assignedManager.username}"></option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -126,12 +127,12 @@
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <tr>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                            <tr th:each="Project : ${projects}">
+                                                <td th:text="${Project.projectCode}"></td>
+                                                <td th:text="${Project.projectName}"></td>
+                                                <td th:text="${Project.startDate + ' - ' + Project.endDate}"></td>
+                                                <td th:text="${Project.assignedManager.username}"></td>
+                                                <td th:text="${Project.projectStatus}"></td>
                                                 <td>
                                                     <a href="#"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
                                                     <a href="#"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
