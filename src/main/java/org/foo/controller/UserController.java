@@ -6,6 +6,8 @@ import org.foo.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
@@ -25,6 +27,11 @@ public class UserController {
         model.addAttribute("users",userService.findAll());
         model.addAttribute("roles",roleService.findAll());
         return "user/create";
+    }
+    @PostMapping("/create")
+    public String insertUser(UserDto userDto, Model model){
+        userService.save(userDto);
+        return "redirect:/user/create";
     }
 
 }
