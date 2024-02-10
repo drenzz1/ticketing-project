@@ -2,6 +2,7 @@ package org.foo.service.impl;
 
 import org.foo.dto.ProjectDTO;
 import org.foo.service.ProjectService;
+import org.foo.utils.Status;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,11 @@ import java.util.List;
 public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> implements ProjectService {
 
     @Override
-    public ProjectDTO save(ProjectDTO object) {
+    public ProjectDTO save(ProjectDTO object)
+    {
+        if (object.getProjectStatus()==null){
+            object.setProjectStatus(Status.OPEN);
+        }
         return super.save(object.getProjectCode(),object);
     }
 

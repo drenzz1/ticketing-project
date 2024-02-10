@@ -32,7 +32,7 @@
                                 <div class="panel-body">
 
                                     <!-- ------------------------FORM START----------------------------- -->
-                                    <form th:object="${project}">
+                                    <form th:action="@{/project/create}" method="post" th:object="${project}">
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
@@ -74,6 +74,24 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-6 col-md-6">
+                                                <div class="form-group">
+                                                    <label>Gender</label><br>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" th:field="*{projectStatus}" th:value="OPEN" name="radio-inline"  class="custom-control-input"><span class="custom-control-label">Open</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" th:field="*{projectStatus}" th:value="IN_PROGRESS" name="radio-inline"  class="custom-control-input"><span class="custom-control-label">IN-Progress</span>
+                                                    </label>
+                                                    <label class="custom-control custom-radio custom-control-inline">
+                                                        <input type="radio" th:field="*{projectStatus}" th:value="COMPLETE" name="radio-inline"  class="custom-control-input"><span class="custom-control-label">COMPLETE</span>
+                                                    </label>
+
+                                                </div>
+                                            </div>
+                                            </div>
                                         <div class="row">
                                             <div class="col">
                                                 <div class="form-group">
@@ -130,13 +148,13 @@
                                             <tr th:each="Project : ${projects}">
                                                 <td th:text="${Project.projectCode}"></td>
                                                 <td th:text="${Project.projectName}"></td>
-                                                <td th:text="${Project.startDate + ' - ' + Project.endDate}"></td>
+                                                <td th:text="${ #temporals.format(Project.startDate,'MM.dd.yyyy') + ' - ' + #temporals.format(Project.endDate,'MM.dd.yyyy')}"></td>
                                                 <td th:text="${Project.assignedManager.username}"></td>
-                                                <td th:text="${Project.projectStatus}"></td>
+                                                <td th:text="${Project.projectStatus.value}"></td>
                                                 <td>
-                                                    <a href="#"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
-                                                    <a href="#"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
-                                                    <a href="#"><button type="button" class="btn btn-info rounded-0">Complete</button></a>
+                                                    <a th:href="@{/project/update}"><button type="button" class="btn btn-warning rounded-0">Update</button></a>
+                                                    <a th:href="@{/project/delete/{id}(id=${Project.projectCode})}"><button type="button" class="btn btn-danger rounded-0">Delete</button></a>
+                                                    <a th:href="@{/project/complete/{id}(id=${Project.projectCode})}"><button type="button" class="btn btn-info rounded-0">Complete</button></a>
                                                 </td>
                                             </tr>
                                             </tbody>
