@@ -38,4 +38,9 @@ public class ProjectServiceImpl extends AbstractMapService<ProjectDTO,String> im
     public ProjectDTO findById(String id) {
         return super.findById(id);
     }
+
+    @Override
+    public void complete(String id) {
+        super.findById(id).setProjectStatus(Status.COMPLETE);
+    }
 }
