@@ -53,7 +53,7 @@
                                             <div class="col-sm-6 col-md-6">
                                                 <div class="form-group">
                                                     <label for="emailaddress" class="col-form-label">Email Address</label>
-                                                    <input id="emailaddress" type="text" placeholder="email address" th:field="*{username}" class="form-control">>
+                                                    <input id="emailaddress" type="text" placeholder="email address" th:field="*{username}" class="form-control">
                                                 </div>
                                             </div>
 
@@ -99,7 +99,6 @@
                                                 <div class="form-group">
                                                     <label>Choose a Role</label>
                                                     <select  th:field="*{role}" class="custom-select">
-                                                        <option th:value="''" th:text="Select"></option>
                                                         <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.description}"></option>
                                                     </select>
                                                 </div>
@@ -156,13 +155,13 @@
 
                                             <tr th:each="user : ${users}">
                                                 <td th:text="${user.firstName + ' ' + user.lastName}"></td>
-                                                <td th:text="${user.userName}"></td>
+                                                <td th:text="${user.username}"></td>
                                                 <td th:text="${user.gender.value}"></td>
                                                 <td th:text="${user.phone}"></td>
                                                 <td th:text="${user.role.description}"></td>
                                                 <td class="actions">
-                                                    <a th:href="@{/user/update/{id}(id=${user.userName})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
-                                                    <a th:href="@{/user/delete/{id}(id=${user.userName})}" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
+                                                    <a th:href="@{/user/update/{id}(id=${user.username})}"><button type="button" class="btn btn-warning btn-sm">Update</button></a>
+                                                    <a th:href="@{/user/delete/{id}(id=${user.username})}" class="delete-row"><button type="button" class="btn btn-secondary btn-sm">Delete</button></a>
                                                 </td>
                                             </tr>
 
