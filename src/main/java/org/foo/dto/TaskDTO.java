@@ -7,20 +7,16 @@ import org.foo.utils.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
-public class ProjectDTO {
-
-    private String projectName;
-    private String projectCode;
-    private UserDTO assignedManager;
+public class TaskDTO {
+    private Long id;
+    private ProjectDTO projectDTO;
+    private UserDTO assignedEmployee;
+    private String taskSubject;
+    private Status taskStatus;
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
-    private LocalDate startDate;
-    @DateTimeFormat(pattern = "yyyy-MM-dd" )
-    private LocalDate endDate;
-    private String projectDetail;
-    private Status projectStatus;
+    private LocalDate assignedDate;
 
 }
