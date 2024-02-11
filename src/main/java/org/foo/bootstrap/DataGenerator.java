@@ -2,9 +2,11 @@ package org.foo.bootstrap;
 
 import org.foo.dto.ProjectDTO;
 import org.foo.dto.RoleDTO;
+import org.foo.dto.TaskDTO;
 import org.foo.dto.UserDTO;
 import org.foo.service.ProjectService;
 import org.foo.service.RoleService;
+import org.foo.service.TaskService;
 import org.foo.service.UserService;
 import org.foo.utils.Gender;
 import org.foo.utils.Status;
@@ -18,10 +20,12 @@ public class DataGenerator implements CommandLineRunner {
     final UserService  userService;
     final RoleService roleService;
     final ProjectService projectService;
-    public DataGenerator(UserService userService, RoleService roleService,ProjectService projectService) {
+    final TaskService taskService;
+    public DataGenerator(UserService userService, RoleService roleService,ProjectService projectService,TaskService taskService) {
         this.userService = userService;
         this.roleService = roleService;
         this.projectService=projectService;
+        this.taskService=taskService;
     }
 
     @Override
@@ -59,5 +63,15 @@ public class DataGenerator implements CommandLineRunner {
         projectService.save(projectDTO1);
         projectService.save(projectDTO2);
         projectService.save(projectDTO3);
+
+        TaskDTO task1 = new TaskDTO(projectDTO1, user8, "Controller", "Request Mapping", Status.IN_PROGRESS, LocalDate.now().minusDays(4));
+        TaskDTO task2 = new TaskDTO(projectDTO3, user3, "Configuration", "Database Connection", Status.COMPLETE, LocalDate.now().minusDays(12));
+        TaskDTO task3 = new TaskDTO(projectDTO3, user6, "Mapping", "One-To-Many", Status.COMPLETE, LocalDate.now().minusDays(8));
+        TaskDTO task4 = new TaskDTO(projectDTO2, user7, "Dependency Injection", "Autowired", Status.IN_PROGRESS, LocalDate.now().minusDays(20));
+
+        taskService.save(task1);
+        taskService.save(task2);
+        taskService.save(task3);
+        taskService.save(task4);
     }
 }
