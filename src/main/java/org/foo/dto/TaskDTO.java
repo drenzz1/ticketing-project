@@ -1,5 +1,7 @@
 package org.foo.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,12 +15,17 @@ import java.util.UUID;
 @NoArgsConstructor
 public class TaskDTO {
     private Long id;
+    @NotNull
     private ProjectDTO projectDTO;
+    @NotNull
     private UserDTO assignedEmployee;
+    @NotBlank
     private String taskSubject;
+    @NotBlank
     private String taskDetail;
     private Status taskStatus;
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
+    @NotNull
     private LocalDate assignedDate;
 
     public TaskDTO(ProjectDTO projectDTO, UserDTO assignedEmployee, String taskSubject, String taskDetail, Status taskStatus, LocalDate assignedDate) {
