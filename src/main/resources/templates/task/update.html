@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{/fragments/head :: head}"></head>
+<head th:replace="/fragments/head :: head"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="~{/fragments/header :: header}"></div>
+    <div th:replace="/fragments/header :: header"></div>
 
-    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
 
     <div class="dashboard-wrapper">
 
@@ -39,11 +39,18 @@
                                             <div class="col">
                                                 <div class="form-group">
                                                     <label>Project</label>
-                                                    <select name="project" class="custom-select" th:field="*{projectDTO}">
+                                                    <select name="project" class="custom-select" th:field="*{project}">
                                                         <option th:each="project : ${projects}"
                                                                 th:value="${project.projectCode}"
                                                                 th:text="${project.projectName}"></option>
                                                     </select>
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('project')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('project')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,9 +62,16 @@
                                                     <select name="assignedemployee" class="custom-select"
                                                             th:field="*{assignedEmployee}">
                                                         <option th:each="employee : ${employees}"
-                                                                th:value="${employee.username}"
+                                                                th:value="${employee.userName}"
                                                                 th:text="${employee.firstName + ' ' + employee.lastName}"></option>
                                                     </select>
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('assignedEmployee')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('assignedEmployee')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -68,6 +82,13 @@
                                                     <label for="tasksubject" class="col-form-label">Task Subject</label>
                                                     <input id="tasksubject" type="text" class="form-control"
                                                            placeholder="task subject" th:field="*{taskSubject}">
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('taskSubject')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('taskSubject')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -79,6 +100,13 @@
                                                     <textarea id="taskdetail" class="form-control"
                                                               placeholder="task detail"
                                                               th:field="*{taskDetail}"></textarea>
+                                                    <div class="invalid-feedback"
+                                                         th:if="${#fields.hasErrors('taskDetail')}">
+                                                        <ul>
+                                                            <li th:each="err : ${#fields.errors('taskDetail')}"
+                                                                th:text="${err}"></li>
+                                                        </ul>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -129,7 +157,7 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="task : ${tasks}">
-                                                <td th:text="${task.projectDTO.projectCode + '-' + task.projectDTO.projectName}"></td>
+                                                <td th:text="${task.project.projectCode + '-' + task.project.projectName}"></td>
                                                 <td th:text="${task.taskSubject}"></td>
                                                 <td th:text="${task.assignedEmployee.firstName +' ' + task.assignedEmployee.lastName}"></td>
                                                 <td th:text="${#temporals.format(task.assignedDate,'MM/dd/yyyy')}"></td>
@@ -158,11 +186,11 @@
 
     </div>
 
-    <div th:replace="~{/fragments/footer :: footer}"></div>
+    <div th:replace="/fragments/footer :: footer"></div>
 
 </div>
 
-<div th:replace="~{/fragments/javascript :: js}"></div>
+<div th:replace="/fragments/javascript :: js"></div>
 
 </body>
 

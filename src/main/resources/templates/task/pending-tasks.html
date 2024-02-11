@@ -2,15 +2,15 @@
 
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="~{/fragments/head :: head}"></head>
+<head th:replace="/fragments/head :: head"></head>
 
 <body>
 
 <div class="dashboard-main-wrapper">
 
-    <div th:replace="~{/fragments/header :: header}"></div>
+    <div th:replace="/fragments/header :: header"></div>
 
-    <div th:replace="~{/fragments/left-sidebar :: left-sidebar}"></div>
+    <div th:replace="/fragments/left-sidebar :: left-sidebar"></div>
 
     <div class="dashboard-wrapper">
 
@@ -42,7 +42,7 @@
                                             </thead>
                                             <tbody>
                                             <tr th:each="task : ${tasks}">
-                                                <td th:text="${task.projectDTO.projectCode +'-'+task.projectDTO.projectName}"></td>
+                                                <td th:text="${task.project.projectCode +'-'+task.project.projectName}"></td>
                                                 <td th:text="${task.taskSubject}"></td>
                                                 <td th:text="${task.assignedEmployee.firstName +' '+ task.assignedEmployee.lastName}"></td>
                                                 <td th:text="${#temporals.format(task.assignedDate, 'MM/dd/yyyy')}"></td>
@@ -68,11 +68,12 @@
         </div>
 
     </div>
-    <div th:replace="~{/fragments/footer :: footer}"></div>
+
+    <div th:replace="/fragments/footer :: footer"></div>
 
 </div>
 
-<div th:replace="~{/fragments/javascript :: js}"></div>
+<div th:replace="/fragments/javascript :: js"></div>
 
 </body>
 
