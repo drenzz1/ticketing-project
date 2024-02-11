@@ -7,9 +7,10 @@ import org.foo.utils.Status;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
+import java.util.UUID;
+
 @Data
 @NoArgsConstructor
-@AllArgsConstructor
 public class TaskDTO {
     private Long id;
     private ProjectDTO projectDTO;
@@ -27,5 +28,6 @@ public class TaskDTO {
         this.taskDetail = taskDetail;
         this.taskStatus = taskStatus;
         this.assignedDate = assignedDate;
+        this.id= UUID.randomUUID().getMostSignificantBits();
     }
 }

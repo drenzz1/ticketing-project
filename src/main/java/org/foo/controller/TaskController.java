@@ -56,8 +56,8 @@ public class TaskController {
 
         return "task/update";
     }
-    @PostMapping("/update/{taskId}")
-    public String updateTask(TaskDTO taskDTO){
+    @PostMapping("/update/{Id}")
+    public String updateTask( TaskDTO taskDTO){
         taskService.update(taskDTO);
         return "redirect:/task/create";
     }
