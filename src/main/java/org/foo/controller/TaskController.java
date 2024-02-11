@@ -104,7 +104,6 @@ public class TaskController {
         if (bindingResult.hasErrors()){
             model.addAttribute("tasks", taskService.findAllTasksByStatusIsNot(Status.COMPLETE));
             model.addAttribute("statuses", Status.values());
-
             return "/task/status-update";
         }
         taskService.updateStatus(taskDTO);

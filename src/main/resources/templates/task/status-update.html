@@ -36,12 +36,9 @@
                                             <div class="col-sm-6 col-md-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Project</label>
-                                                    <select th:field="*{projectDTO}" name="project" class="custom-select"
-                                                            readonly>
-                                                        <option th:each="project : ${projects}"
-                                                                th:value="${project.projectCode}"
-                                                                th:text="${project.projectCode+'-'+ project.projectName}"></option>
-                                                    </select>
+                                                    <input th:field="*{projectDTO.projectName}" id="project"
+                                                           type="text" class="form-control"
+                                                           aria-describedby="inputGroupPrepend" readonly/>
                                                 </div>
                                             </div>
                                         </div>
@@ -49,12 +46,9 @@
                                             <div class="col-sm-6 col-md-6 col-xs-12">
                                                 <div class="form-group">
                                                     <label>Assigned Employee</label>
-                                                    <select th:field="*{assignedEmployee}" name="assignedemployee"
-                                                            class="custom-select" readonly>
-                                                        <option th:each="employee : ${employees}"
-                                                                th:value="${employee.username}"
-                                                                th:text="${employee.firstName +' '+ employee.lastName}"></option>
-                                                    </select>
+                                                    <input th:field="*{assignedEmployee.username}" id="assignedEmployee"
+                                                           type="text" class="form-control"
+                                                           aria-describedby="inputGroupPrepend" readonly/>
                                                 </div>
                                             </div>
                                         </div>

@@ -56,7 +56,8 @@
                                                             th:field="*{assignedEmployee}">
                                                         <option th:each="employee : ${employees}"
                                                                 th:value="${employee.username}"
-                                                                th:text="${employee.firstName + ' ' + employee.lastName}"></option>
+                                                                th:text="${employee.firstName + ' ' + employee.lastName}">
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>

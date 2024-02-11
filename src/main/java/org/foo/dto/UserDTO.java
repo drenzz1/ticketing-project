@@ -33,16 +33,16 @@ public class UserDTO {
     @NotNull
     private Gender gender;
 
-    public String getPassWord() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassWord(String password) {
+    public void setPassword(String password) {
         this.password = password;
         checkConfirmPassWord();
     }
 
-    public String getConfirmPassWord() {
+    public String getConfirmPassword() {
         return confirmPassWord;
     }
 
@@ -75,11 +75,11 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public String getUserName() {
+    public String getUsername() {
         return username;
     }
 
-    public void setUserName(String username) {
+    public void setUsername(String username) {
         this.username = username;
     }
 
