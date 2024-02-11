@@ -1,5 +1,6 @@
 package org.foo.controller;
 
+import jakarta.validation.Valid;
 import org.foo.dto.ProjectDTO;
 import org.foo.dto.UserDTO;
 import org.foo.service.ProjectService;
@@ -7,6 +8,7 @@ import org.foo.service.UserService;
 import org.foo.utils.Status;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,7 +33,12 @@ public class ProjectController {
         return "/project/create";
     }
     @PostMapping("/create")
-    public String insertProject(ProjectDTO projectDTO){
+    public String insertProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO, BindingResult bindingResult,Model model){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("projects",projectService.findAll());
+            model.addAttribute("managers",userService.findMenagers());
+            return "/project/create";
+        }
         projectService.save(projectDTO);
         return "redirect:/project/create";
     }
@@ -55,7 +62,13 @@ public class ProjectController {
     }
 
     @PostMapping("/update")
-    public String updateProject(ProjectDTO projectDTO){
+    public String updateProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO,BindingResult bindingResult,Model model){
+        if (bindingResult.hasErrors()){
+            model.addAttribute("projects", projectService.findAll());
+            model.addAttribute("managers", userService.findManagers());
+
+            return "/project/update";
+        }
         projectService.update(projectDTO);
         return "redirect:/project/create";
     }

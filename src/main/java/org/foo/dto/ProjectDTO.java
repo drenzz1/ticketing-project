@@ -1,5 +1,7 @@
 package org.foo.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,14 +14,19 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Data
 public class ProjectDTO {
-
+    @NotBlank
     private String projectName;
+    @NotBlank
     private String projectCode;
+    @NotNull
     private UserDTO assignedManager;
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
+    @NotNull
     private LocalDate startDate;
     @DateTimeFormat(pattern = "yyyy-MM-dd" )
+    @NotNull
     private LocalDate endDate;
+    @NotBlank
     private String projectDetail;
     private Status projectStatus;
     private int completeTaskCounts;
