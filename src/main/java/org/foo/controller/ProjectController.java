@@ -65,7 +65,7 @@ public class ProjectController {
     public String updateProject(@Valid @ModelAttribute("project") ProjectDTO projectDTO,BindingResult bindingResult,Model model){
         if (bindingResult.hasErrors()){
             model.addAttribute("projects", projectService.findAll());
-            model.addAttribute("managers", userService.findManagers());
+            model.addAttribute("managers", userService.findMenagers());
 
             return "/project/update";
         }
