@@ -1,6 +1,10 @@
 package com.foo.service;
 
 import com.foo.dto.RoleDTO;
-
-public interface RoleService extends CrudService<RoleDTO, Long> {
+import org.springframework.stereotype.Service;
+import java.util.List;
+@Service
+public interface RoleService {
+    List<RoleDTO>listAllRoles();
+    RoleDTO findById(Long id);
 }

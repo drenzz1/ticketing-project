@@ -1,48 +1,45 @@
 package com.foo.service.impl;
 
 import com.foo.dto.UserDTO;
+import com.foo.mapper.UserMapper;
+import com.foo.repository.UserRepository;
 import com.foo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
 @Service
-public class UserServiceImpl extends AbstractMapService<UserDTO, String> implements UserService {
+public class UserServiceImpl implements UserService {
+    private final UserRepository userRepository;
+    private final UserMapper userMapper;
+
+    public UserServiceImpl(UserRepository userRepository, UserMapper userMapper) {
+        this.userRepository = userRepository;
+        this.userMapper = userMapper;
+    }
+
 
     @Override
-    public UserDTO save(UserDTO object) {
-        return super.save(object.getUserName(), object);
+    public List<UserDTO> listAllUsers() {
+       return  userRepository.findAll().stream().map(userMapper::convertToDto).toList();
     }
 
     @Override
-    public List<UserDTO> findAll() {
-        return super.findAll();
+    public UserDTO findByUsername(String username) {
+        return null;
     }
 
     @Override
-    public void deleteById(String id) {
-        super.deleteById(id);
+    public void save(UserDTO userDTO) {
+        userRepository.save(userMapper.convertToEntity(userDTO));
     }
 
     @Override
-    public void update(UserDTO object) {
-        super.update(object.getUserName(), object);
+    public UserDTO update(UserDTO userDTO) {
+        return null;
     }
 
     @Override
-    public UserDTO findById(String id) {
-        return super.findById(id);
-    }
+    public void deleteByUsername(String username) {
 
-    @Override
-    public List<UserDTO> findManagers() {
-        return super.findAll().stream().filter(user -> user.getRole().getId() == 2).collect(Collectors.toList());
     }
-
-    @Override
-    public List<UserDTO> findEmployees() {
-        return super.findAll().stream().filter(user -> user.getRole().getId() == 3).collect(Collectors.toList());
-    }
-
 }
