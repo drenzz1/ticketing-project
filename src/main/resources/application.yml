@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    username: postgres
+    password: Password123.
+    url: jdbc:postgresql://localhost:5432/project_smis
+  jpa:
+    show-sql: false
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: create
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: always
