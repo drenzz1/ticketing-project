@@ -1,6 +1,7 @@
 package com.foo.service.impl;
 
 import com.foo.dto.UserDTO;
+import com.foo.entity.User;
 import com.foo.mapper.UserMapper;
 import com.foo.repository.UserRepository;
 import com.foo.service.UserService;
@@ -25,7 +26,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO findByUsername(String username) {
-        return null;
+      return userMapper.convertToDto(userRepository.findByUserName(username));
     }
 
     @Override
@@ -35,11 +36,22 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDTO update(UserDTO userDTO) {
-        return null;
+        User user = userRepository.findByUserName(userDTO.getUserName());
+        User convertedUser = userMapper.convertToEntity(userDTO);
+        convertedUser.setId(user.getId());
+        userRepository.save(convertedUser);
+        return findByUsername(userDTO.getUserName());
     }
 
     @Override
     public void deleteByUsername(String username) {
+        userRepository.deleteByUserName(username);
+    }
 
+    @Override
+    public void delete(String username) {
+        User user = userRepository.findByUserName(username);
+        user.setIsDeleted(true);
+        userRepository.save(user);
     }
 }
