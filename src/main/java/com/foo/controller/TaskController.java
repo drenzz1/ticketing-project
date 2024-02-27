@@ -2,6 +2,9 @@ package com.foo.controller;
 
 import com.foo.dto.TaskDTO;
 import com.foo.enums.Status;
+import com.foo.service.ProjectService;
+import com.foo.service.TaskService;
+import com.foo.service.UserService;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,15 +17,15 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/task")
 public class TaskController {
 
-//    private final TaskService taskService;
-//    private final ProjectService projectService;
-//    private final UserService userService;
-//
-//    public TaskController(TaskService taskService, ProjectService projectService, UserService userService) {
-//        this.taskService = taskService;
-//        this.projectService = projectService;
-//        this.userService = userService;
-//    }
+    private final TaskService taskService;
+    private final ProjectService projectService;
+    private final UserService userService;
+
+    public TaskController(TaskService taskService, ProjectService projectService, UserService userService) {
+        this.taskService = taskService;
+        this.projectService = projectService;
+        this.userService = userService;
+    }
 //
 //    @GetMapping("/create")
 //    public String createTask(Model model) {
