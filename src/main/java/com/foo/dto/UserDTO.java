@@ -46,7 +46,7 @@ public class UserDTO {
     private boolean enabled;
 
     @NotBlank
-    @Pattern(regexp = "^\\d{10}$")
+    @Pattern(regexp = "^\\d{9}$")
     private String phone;
 
     @NotNull
