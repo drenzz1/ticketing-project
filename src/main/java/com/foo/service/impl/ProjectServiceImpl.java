@@ -1,25 +1,39 @@
 package com.foo.service.impl;
 
 import com.foo.dto.ProjectDTO;
+import com.foo.dto.UserDTO;
 import com.foo.entity.Project;
 import com.foo.entity.User;
 import com.foo.enums.Status;
 import com.foo.mapper.ProjectMapper;
+import com.foo.mapper.UserMapper;
 import com.foo.repository.ProjectRepository;
+import com.foo.repository.TaskRepository;
 import com.foo.service.ProjectService;
+import com.foo.service.TaskService;
+import com.foo.service.UserService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
-    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper) {
-        this.projectRepository = projectRepository;
-        this.projectMapper = projectMapper;
-    }
 
     private final ProjectRepository projectRepository;
     private final ProjectMapper projectMapper;
+    private final UserService userService;
+    private final UserMapper userMapper;
+    private final TaskService taskService;
+
+    public ProjectServiceImpl(ProjectRepository projectRepository, ProjectMapper projectMapper, UserService userService, UserMapper userMapper, TaskService taskService) {
+        this.projectRepository = projectRepository;
+        this.projectMapper = projectMapper;
+        this.userService = userService;
+        this.userMapper = userMapper;
+        this.taskService = taskService;
+    }
+
     @Override
     public ProjectDTO getByProjectCode(String code) {
       return  projectMapper.convertToDto(projectRepository.findByProjectCode(code));
@@ -57,5 +71,24 @@ public class ProjectServiceImpl implements ProjectService {
         Project project = projectRepository.findByProjectCode(projectCode);
         project.setProjectStatus(Status.COMPLETE);
         projectRepository.save(project);
+    }
+
+    @Override
+    public List<ProjectDTO> listAllProjectDetails() {
+
+        UserDTO currentUserDto= userService.findByUsername("harold@manager.com");
+        User user = userMapper.convertToEntity(currentUserDto);
+
+        List<Project>list =  projectRepository.findAllByAssignedManager(user);
+       return  list.stream().map(project -> {
+
+            ProjectDTO obj=projectMapper.convertToDto(project);
+            obj.setUnfinishedTaskCounts(taskService.totalNonCompletedTask(project.getProjectCode()));
+            obj.setCompleteTaskCounts(taskService.totalCompletedTask(project.getProjectCode()));
+            return obj;
+
+                }
+        ).collect(Collectors.toList());
+
     }
 }
