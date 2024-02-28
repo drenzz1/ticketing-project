@@ -20,6 +20,7 @@ public class User extends BaseEntity {
 
     private String firstName;
     private String lastName;
+    @Column(unique = true,nullable = false)
     private String userName;
     private String passWord;
     private boolean enabled;
