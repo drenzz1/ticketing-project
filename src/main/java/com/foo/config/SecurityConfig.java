@@ -1,25 +1,24 @@
 package com.foo.config;
 
+import com.foo.service.SecurityService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.SecurityFilterChain;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+
+
 
 
 @Configuration
 public class SecurityConfig {
 
+    private final SecurityService securityService;
 
+    public SecurityConfig(SecurityService securityService) {
+        this.securityService = securityService;
+    }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -38,7 +37,15 @@ public class SecurityConfig {
               .failureUrl("/login?error=true")
               .permitAll()
               .and()
-              .build();
+              .logout()
+              .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+              .logoutSuccessUrl("/login")
+              .and()
+              .rememberMe()
+              .tokenValiditySeconds(60000)
+              .key("foo")
+              .userDetailsService(securityService)
+              .and().build();
 
     }
 

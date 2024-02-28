@@ -50,6 +50,9 @@ public class UserPrincipal implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return this.user.isEnabled();
+        return true;
+    }
+    public Long getId(){
+        return this.user.getId();
     }
 }

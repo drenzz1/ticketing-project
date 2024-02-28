@@ -8,10 +8,10 @@ import com.foo.enums.Status;
 import com.foo.mapper.ProjectMapper;
 import com.foo.mapper.UserMapper;
 import com.foo.repository.ProjectRepository;
-import com.foo.repository.TaskRepository;
 import com.foo.service.ProjectService;
 import com.foo.service.TaskService;
 import com.foo.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,8 +81,9 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public List<ProjectDTO> listAllProjectDetails() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
-        UserDTO currentUserDto= userService.findByUsername("harold@manager.com");
+        UserDTO currentUserDto= userService.findByUsername(username);
         User user = userMapper.convertToEntity(currentUserDto);
 
         List<Project>list =  projectRepository.findAllByAssignedManager(user);
